@@ -1,5 +1,6 @@
 
 #Debug Folders
+Debug/*
 .vs/*
 x64/*
 
