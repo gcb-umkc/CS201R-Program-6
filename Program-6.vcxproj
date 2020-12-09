@@ -139,11 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Clock.cpp" />
     <ClCompile Include="PrintJob.cpp" />
     <ClCompile Include="PrintQueue.cpp" />
     <ClCompile Include="Program-6.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Clock.h" />
     <ClInclude Include="PrintJob.h" />
     <ClInclude Include="PrintQueue.h" />
   </ItemGroup>

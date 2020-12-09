@@ -24,12 +24,18 @@
     <ClCompile Include="Program-6.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Clock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PrintJob.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PrintQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Clock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

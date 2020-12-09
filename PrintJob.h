@@ -3,16 +3,16 @@ class PrintJob
 {
 public:
 	//Constructors
-	PrintJob();
-	PrintJob(int time, char type, int pages) : time(time), type(type), pages(pages) {};
+	PrintJob(char type, int pages);
 
 	//Accessors
-	int GetTime();
 	char GetType();
 	int GetPages();
+	int GetTime();
 
 private:
-	int time;
+	int serviceTime = this->GetTime();
+	int waitingTime;
 	char type;
 	int pages;
 };

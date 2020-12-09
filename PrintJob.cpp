@@ -1,13 +1,17 @@
 #include "PrintJob.h"
+using namespace std;
 
-PrintJob::PrintJob() {
-	time = 0;
-	type = ' ';
-	pages = 0;
+PrintJob::PrintJob(char type, int pages) {
+	this->type = type;
+	this->pages = pages;
 }
 
 int PrintJob::GetTime() {
-	return time;
+	if (serviceTime) {
+		//TODO: time calculations
+		serviceTime = pages;
+	}
+	return serviceTime;
 }
 
 char PrintJob::GetType() {
