@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-#include <queue>
+#include <list>
+#include <map>
 #include "PrintJob.h"
 using namespace std;
 
@@ -8,27 +9,39 @@ class PrintQueue
 {
 public:
 	//Constructor
-	PrintQueue();
+	PrintQueue() {};
 	
-	//Accessors
+	//State Accessors
 	int GetWaitingTime();
+	bool isEmpty();
+	bool isBusy();
 
 	//State Mutators
 	void SetWaitingTime(int waitingTime);
-	void SetBusy(bool newState = true);
 	void readData(string fileName);
+	PrintQueue operator--(int);
 
 	//Queue Mutators
-	void removeJob();
-	void addJob(PrintJob newJob);
-	void sort();
+	virtual void RemoveJob();
+	virtual void AddJob();
+	virtual int GetNumJobs();
+	virtual void updateWait();
+	
+	//Other Functions
+	void DisplayPending();
 
 private:
-	queue<PrintJob> pendingJobs;
-	vector<PrintJob> activeJobs;
-	int pastJobs = 0;
-	int currentJobs = activeJobs.size();
+	//Functionality
+	map<int, PrintJob> pendingJobs;
+	list<PrintJob> activeJobs;
 	int waitingTime = 0;
-	bool busy;
+	bool busy = false;
+
+	//Statistics;
+	int totalWaitingAdministrators = 0;
+	int totalWaitingFaculty = 0;
+	int totalWaitingStudents = 0;
+	int longestWait = 0;
+	int pastJobs = 0;
 };
 

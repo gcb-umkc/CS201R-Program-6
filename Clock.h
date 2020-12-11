@@ -9,10 +9,13 @@ public:
 	//Accessors
 	int GetTime();
 	
-	//Mutataors
+	//Mutators
 	void SetTime(int newTime);
-	int Add(int time = 1);
+	void Add(int time = 1);
 	
+	//Other
+	Clock operator++(int);
+
 private:
 	int currentTicks;
 };

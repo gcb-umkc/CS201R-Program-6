@@ -140,14 +140,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Clock.cpp" />
+    <ClCompile Include="FIFOQueue.cpp" />
+    <ClCompile Include="MultiQueue.cpp" />
     <ClCompile Include="PrintJob.cpp" />
     <ClCompile Include="PrintQueue.cpp" />
     <ClCompile Include="Program-6.cpp" />
+    <ClCompile Include="SJFQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Clock.h" />
+    <ClInclude Include="FIFOQueue.h" />
+    <ClInclude Include="MultiQueue.h" />
     <ClInclude Include="PrintJob.h" />
     <ClInclude Include="PrintQueue.h" />
+    <ClInclude Include="SJFQueue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

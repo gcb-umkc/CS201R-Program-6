@@ -10,8 +10,11 @@ public:
 	int GetPages();
 	int GetTime();
 
+	//Mutators
+	PrintJob operator++(int);
+
 private:
-	int serviceTime = this->GetTime();
+	int serviceTime;
 	int waitingTime;
 	char type;
 	int pages;
