@@ -4,20 +4,10 @@
 #include <fstream>
 using namespace std;
 
-//Reads data from a file to the pending jobs
-void PrintQueue::readData(string fileName) {
-	ifstream input(fileName);
-
-	char type;
-	int time, pages;
-	while (input.good()) {
-		input >> time >> type >> pages;
-
-		PrintJob newJob = PrintJob(type, pages);
-		pendingJobs.emplace(time, newJob);
-	}
-
-	input.close();
+//Default constructor
+PrintQueue::PrintQueue() {
+	busy = false;
+	waitingTime = 0;
 }
 
 //Sets the time the print queue will be busy for
@@ -31,63 +21,41 @@ int PrintQueue::GetWaitingTime() {
 }
 
 //Decrements the waiting time by one minute
-PrintQueue PrintQueue::operator--(int) {
+void PrintQueue::update() {
 	if (waitingTime == 0) {
 		this->busy = false;
 	}
 	else {
 		waitingTime -= 1;
 	}
-	return *this;
 }
 
 //Returns if the print queue is busy or not
 bool PrintQueue::isBusy() {
 	if (waitingTime == 0) {
-		return true;
-	}
-	else {
 		return false;
 	}
-}
-
-//Checks if both the pending jobs and active jobs are empty
-bool PrintQueue::isEmpty() {
-	if ((this->GetNumJobs() == 0) && (pendingJobs.size() == 0)) {
+	else {
 		return true;
 	}
-	else {
-		return false;
-	}
 }
 
-
-//Increments the waiting time
-void PrintQueue::updateWait()
-{
-	//TODO FIFO Queue
-}
+//Virtual Functions
 
 //Pushes to the back for a job
-void PrintQueue::AddJob() {
-	//TODO FIFO Queue
+void PrintQueue::AddJob(PrintJob newJob) {
+	activeJobs.push_back(newJob);
+	waitingTime = newJob.GetServiceTime();
 }
 
 //Pops from the front
-void PrintQueue::RemoveJob() {
-	pastJobs += 1;
-	//TODO FIFO Queue
+PrintJob PrintQueue::RemoveJob() {
+	PrintJob temp = activeJobs.front();
+	activeJobs.pop_front();
+	return temp;
 }
 
 //Returns the number of jobs
 int PrintQueue::GetNumJobs() {
-	//TODO FIFO Queue
-	return 0;
-}
-
-//Prints out the pending jobs
-void PrintQueue::DisplayPending() {
-	for (auto& x : pendingJobs) {
-		cout << "Ticks: " << x.first << " Type: " << x.second.GetType() << " Pages: " << x.second.GetPages() << endl;
-	}
+	return activeJobs.size();
 }

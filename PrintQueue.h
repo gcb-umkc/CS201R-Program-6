@@ -1,47 +1,31 @@
 #pragma once
 #include <string>
 #include <list>
-#include <map>
 #include "PrintJob.h"
 using namespace std;
 
 class PrintQueue
 {
 public:
-	//Constructor
-	PrintQueue() {};
+	//Default constructor
+	PrintQueue();
 	
 	//State Accessors
 	int GetWaitingTime();
-	bool isEmpty();
 	bool isBusy();
 
 	//State Mutators
 	void SetWaitingTime(int waitingTime);
-	void readData(string fileName);
-	PrintQueue operator--(int);
+	void update();
 
 	//Queue Mutators
-	virtual void RemoveJob();
-	virtual void AddJob();
+	virtual void AddJob(PrintJob newJob);
+	virtual PrintJob RemoveJob();
 	virtual int GetNumJobs();
-	virtual void updateWait();
-	
-	//Other Functions
-	void DisplayPending();
 
-private:
-	//Functionality
-	map<int, PrintJob> pendingJobs;
+protected:
 	list<PrintJob> activeJobs;
-	int waitingTime = 0;
-	bool busy = false;
-
-	//Statistics;
-	int totalWaitingAdministrators = 0;
-	int totalWaitingFaculty = 0;
-	int totalWaitingStudents = 0;
-	int longestWait = 0;
-	int pastJobs = 0;
+	int waitingTime;
+	bool busy;
 };
 

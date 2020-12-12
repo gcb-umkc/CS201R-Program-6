@@ -3,20 +3,19 @@ class PrintJob
 {
 public:
 	//Constructors
-	PrintJob(char type, int pages);
+	PrintJob();
+	PrintJob(int arrivalTime, char type, int pages);
 
 	//Accessors
 	char GetType();
 	int GetPages();
 	int GetTime();
-
-	//Mutators
-	PrintJob operator++(int);
+	int GetArrival();
+	int GetServiceTime();
 
 private:
-	int serviceTime;
-	int waitingTime;
 	char type;
 	int pages;
+	int serviceTime, arrivalTime;
 };
 

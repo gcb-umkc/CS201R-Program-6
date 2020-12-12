@@ -24,16 +24,10 @@
     <ClCompile Include="Program-6.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Clock.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MultiQueue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SJFQueue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FIFOQueue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,16 +38,10 @@
     <ClInclude Include="PrintQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Clock.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MultiQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SJFQueue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FIFOQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

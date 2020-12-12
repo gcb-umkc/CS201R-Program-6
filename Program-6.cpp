@@ -1,45 +1,130 @@
 // Program 6.cpp : This file contains the 'main' function. Program execution begins and ends there.
 
 #include <iostream>
-#include <vector>
+#include <iomanip>
+#include <fstream>
 #include <string>
 #include <queue>
+
 #include "PrintQueue.h"
-#include "Clock.h"
+#include "SJFQueue.h"
+#include "MultiQueue.h"
+
 using namespace std;
 
-void runSimulation(PrintQueue test) {
+void readData(string fileName, queue<PrintJob>& pendingJobs);
+void runSimulation(string dataFile, PrintQueue* printer);
 
-}
 
 int main()
 {
-    cout << "Beginning FIFO Simulation" << endl;
     //Label the output so that it is understandable
     //Not a realistic simulation of a print business
     //The general pattern should be SJF - shortest
     //Priority Queue will be similar to the FIFO queue
 
-    PrintQueue FIFO = PrintQueue();
-    FIFO.readData("Program6Data.txt");
-    Clock newClock = Clock();
-    while (!FIFO.isEmpty() || newClock.GetTime() <= 100) {
-        if (!FIFO.isBusy()) {
-            //If the queue is not busy, add another job to the queue
-            FIFO.AddJob();
+    cout << setw(30) << "Queue Simulations: " << endl;
+    string data = "Program6Data.txt";
+
+    cout << setw(30) <<  "Results of FIFO Simulation" << endl;
+    
+    PrintQueue* FIFO2 = new PrintQueue();
+    runSimulation(data , FIFO2);
+    
+    cout << endl << setw(30) << "Results of Shortest Job First Simulation" << endl;
+    PrintQueue* second = new SJFQueue();
+    runSimulation(data, second);
+
+    cout << endl << setw(30) << "Results of Multi-level Simulation" << endl;
+    PrintQueue* third = new MultiQueue();
+    runSimulation(data, third);
+}
+
+//Reads data from a file to the pending jobs
+void readData(string fileName, queue<PrintJob>& pendingJobs) {
+    ifstream input(fileName);
+
+    char type;
+    int time, pages;
+    while (input.good()) {
+        input >> time >> type >> pages;
+
+        PrintJob newJob = PrintJob(time, type, pages);
+        pendingJobs.push(newJob);
+    }
+
+    input.close();
+}
+
+//Main Function that simulates queuing times
+void runSimulation(string dataFile, PrintQueue* printer) {
+    //Statistic Variables
+    int pastJobs = 0;
+    int longestWait = 0;
+    int totalWaitingAdmin = 0;
+    int totalWaitingFaculty = 0;
+    int totalWaitingStudent = 0;
+
+    //Input Data
+    queue<PrintJob> newJobs;
+    readData(dataFile, newJobs);
+
+    //Main Simulation Loop
+    int ticks = 0;
+    while (!(newJobs.empty() && printer->GetNumJobs() == 0)) {
+        //Takes in new jobs if the time is right
+        while ((newJobs.size() > 1) && (newJobs.front().GetArrival() == ticks) && (ticks < 480)) {
+
+            //Adds the new job and removes the item from the pending queue
+            printer->AddJob(newJobs.front());
+            newJobs.pop();
+
+            //Handles the last item in the queue
+            if (newJobs.size() == 1) {
+                newJobs.pop();
+            }
+        }
+
+        //Processes the jobs if the printer is not busy
+        if (!printer->isBusy()) {
+            //If there is a last job, removes it assuming that the time frame has past for it
+            if (printer->GetNumJobs() > 0) {
+                PrintJob tempJob = printer->RemoveJob();
+
+                //Updates the waiting time statistics
+                int waitingTime = ticks - tempJob.GetArrival();
+                if (waitingTime > longestWait) {
+                    longestWait = waitingTime;
+                }
+                switch (tempJob.GetType())
+                {
+                case 'A':
+                    totalWaitingAdmin += waitingTime;
+                    break;
+                case 'F':
+                    totalWaitingFaculty += waitingTime;
+                    break;
+                case 'S':
+                    totalWaitingStudent += waitingTime;
+                    break;
+                };
+                pastJobs++;
+            }
         }
         else {
-            //Decrement the waiting time
-            FIFO--;
+            //Decrement the waiting time and check if busy
+            printer->update();
         }
 
         //Increase the number of ticks
-        cout << newClock.GetTime() << endl;
-        newClock++;
+        ticks++;
     }
 
-    cout << "Beginning SJF Simulation" << endl;
-
-    cout << "Beginning FIFO Simulation" << endl;
+    //Reports the statistics
+    cout << "Total Jobs: " << setw(36) << pastJobs << " jobs " << endl;
+    cout << "Longest Wait: " << setw(31) << longestWait << " minutes " << endl;
+    cout << "Total Administrator: " << setw(24) << totalWaitingAdmin << " minutes " << endl;
+    cout << "Total Faculty: " << setw(30) << totalWaitingFaculty << " minutes " << endl;
+    cout << "Total Student: " << setw(30) << totalWaitingStudent << " minutes " << endl;
+    cout << "Total Time: " << setw(33) << totalWaitingAdmin + totalWaitingFaculty + totalWaitingStudent << " minutes " << endl;
 }
-
