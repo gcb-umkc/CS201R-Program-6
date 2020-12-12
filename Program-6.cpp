@@ -18,14 +18,9 @@ using namespace std;
 void readData(string fileName, queue<PrintJob>& pendingJobs);
 void runSimulation(string dataFile, PrintQueue* printer);
 
-
+//Main function, calls the simulation functions
 int main()
 {
-    //Label the output so that it is understandable
-    //Not a realistic simulation of a print business
-    //The general pattern should be SJF - shortest
-    //Priority Queue will be similar to the FIFO queue
-
     cout << setw(35) << right << "Queue Simulations: " << endl;
     string data = "Program6Data.txt";
 
@@ -51,7 +46,6 @@ void readData(string fileName, queue<PrintJob>& pendingJobs) {
     int time, pages;
     while (input.good()) {
         input >> time >> type >> pages;
-
         PrintJob newJob = PrintJob(time, type, pages);
         pendingJobs.push(newJob);
     }
@@ -61,6 +55,7 @@ void readData(string fileName, queue<PrintJob>& pendingJobs) {
 
 //Main Function that simulates queuing times
 void runSimulation(string dataFile, PrintQueue* printer) {
+
     //Statistic Variables
     int pastJobs = 0;
     int longestWait = 0;
@@ -68,7 +63,7 @@ void runSimulation(string dataFile, PrintQueue* printer) {
     int totalWaitingFaculty = 0;
     int totalWaitingStudent = 0;
 
-    //Input Data
+    //Input data
     queue<PrintJob> newJobs;
     readData(dataFile, newJobs);
 
@@ -99,6 +94,7 @@ void runSimulation(string dataFile, PrintQueue* printer) {
                 if (waitingTime > longestWait) {
                     longestWait = waitingTime;
                 }
+
                 //Adds waiting time to appropriate category
                 switch (tempJob.GetType())
                 {
@@ -112,6 +108,7 @@ void runSimulation(string dataFile, PrintQueue* printer) {
                     totalWaitingStudent += waitingTime;
                     break;
                 };
+
                 //Increments total job number
                 pastJobs++;
             }
@@ -125,7 +122,7 @@ void runSimulation(string dataFile, PrintQueue* printer) {
         ticks++;
     }
 
-    //Reports the statistics
+    //Reports the statistics and the total wait
     int totalWait = totalWaitingAdmin + totalWaitingFaculty + totalWaitingStudent;
     cout << setfill('.') << "Total Jobs" << setw(36) << pastJobs << " jobs " << endl;
     cout << "Longest Wait" << setw(31) << longestWait << " minutes " << endl;
