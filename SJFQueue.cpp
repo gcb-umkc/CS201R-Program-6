@@ -1,10 +1,10 @@
 #include "SJFQueue.h"
 #include <iostream>
 
-//Adds a new job to a SJF queue
+//Adds a new job to a SJF queue, inserts based on service time of job
 void SJFQueue::AddJob(PrintJob newJob) {
 	int jobTime = newJob.GetServiceTime();
-	
+
 	//If the queue is empty or if the back is smaller, push to back
 	if ( (activeJobs.empty()) || (jobTime >= activeJobs.back().GetServiceTime()) ){
 		activeJobs.push_back(newJob);
@@ -24,6 +24,8 @@ void SJFQueue::AddJob(PrintJob newJob) {
 		}
 	}
 
-	//Sets the waiting time for the queue to the front job
-	SetWaitingTime(activeJobs.front().GetServiceTime());
+	//If the queue is not empty, then set the front service time to the waiting time
+	if (!activeJobs.empty()) {
+		SetWaitingTime(activeJobs.front().GetServiceTime());
+	}
 }

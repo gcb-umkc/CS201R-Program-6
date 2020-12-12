@@ -1,11 +1,11 @@
                 Queue Simulations:
 Results of First In, First Out Simulation
 Total Jobs.................................193 jobs
-Longest Wait............................121 minutes
-Total Administrator....................7077 minutes
-Total Faculty..........................4133 minutes
-Total Student..........................2766 minutes
-Total Wait............................13976 minutes
+Longest Wait............................125 minutes
+Total Administrator....................7177 minutes
+Total Faculty..........................4243 minutes
+Total Student..........................2816 minutes
+Total Wait............................14236 minutes
 
 Results of Shortest Job First Simulation
 Total Jobs.................................193 jobs
@@ -17,8 +17,8 @@ Total Wait............................13670 minutes
 
 Results of Multi-level Queue Simulation
 Total Jobs.................................193 jobs
-Longest Wait............................296 minutes
-Total Administrator....................2051 minutes
-Total Faculty..........................5906 minutes
-Total Student..........................6019 minutes
-Total Wait............................13976 minutes
+Longest Wait............................300 minutes
+Total Administrator....................2255 minutes
+Total Faculty..........................6121 minutes
+Total Student..........................6171 minutes
+Total Wait............................14547 minutes
