@@ -22,10 +22,12 @@ PrintJob MultiQueue::RemoveJob() {
 }
 
 void MultiQueue::AddJob(PrintJob newJob) {
+    SetWaitingTime(newJob.GetServiceTime());
     switch (newJob.GetType())
     {
     case 'A':
         activeJobsAdmin.push_back(newJob);
+        
         break;
     case 'F':
         activeJobsFaculty.push_back(newJob);

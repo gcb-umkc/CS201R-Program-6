@@ -23,19 +23,19 @@ int main()
     //The general pattern should be SJF - shortest
     //Priority Queue will be similar to the FIFO queue
 
-    cout << setw(30) << "Queue Simulations: " << endl;
-    string data = "Program6Data.txt";
+    cout << setw(35) << right << "Queue Simulations: " << endl;
+    string data = "Program6Data2.txt";
 
-    cout << setw(30) <<  "Results of FIFO Simulation" << endl;
+    cout << "Results of First In, First Out Simulation" << endl;
     
     PrintQueue* FIFO2 = new PrintQueue();
     runSimulation(data , FIFO2);
     
-    cout << endl << setw(30) << "Results of Shortest Job First Simulation" << endl;
+    cout << endl << "Results of Shortest Job First Simulation" << endl;
     PrintQueue* second = new SJFQueue();
     runSimulation(data, second);
 
-    cout << endl << setw(30) << "Results of Multi-level Simulation" << endl;
+    cout << endl << "Results of Multi-level Queue Simulation" << endl;
     PrintQueue* third = new MultiQueue();
     runSimulation(data, third);
 }
@@ -121,10 +121,11 @@ void runSimulation(string dataFile, PrintQueue* printer) {
     }
 
     //Reports the statistics
-    cout << "Total Jobs: " << setw(36) << pastJobs << " jobs " << endl;
-    cout << "Longest Wait: " << setw(31) << longestWait << " minutes " << endl;
-    cout << "Total Administrator: " << setw(24) << totalWaitingAdmin << " minutes " << endl;
-    cout << "Total Faculty: " << setw(30) << totalWaitingFaculty << " minutes " << endl;
-    cout << "Total Student: " << setw(30) << totalWaitingStudent << " minutes " << endl;
-    cout << "Total Time: " << setw(33) << totalWaitingAdmin + totalWaitingFaculty + totalWaitingStudent << " minutes " << endl;
+    int totalWait = totalWaitingAdmin + totalWaitingFaculty + totalWaitingStudent;
+    cout << setfill('.') << "Total Jobs" << setw(36) << pastJobs << " jobs " << endl;
+    cout << "Longest Wait" << setw(31) << longestWait << " minutes " << endl;
+    cout << "Total Administrator" << setw(24) << totalWaitingAdmin << " minutes " << endl;
+    cout << "Total Faculty" << setw(30) << totalWaitingFaculty << " minutes " << endl;
+    cout << "Total Student" << setw(30) << totalWaitingStudent << " minutes " << endl;
+    cout << "Total Wait" << setw(33) << totalWait << " minutes " << endl;
 }
