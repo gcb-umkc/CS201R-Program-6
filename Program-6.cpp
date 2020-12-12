@@ -1,4 +1,7 @@
-// Program 6.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// George Bennett
+// gcbz9k@mail.umkc.edu
+// 3/12/2020
+// CS201R Program 6
 
 #include <iostream>
 #include <iomanip>
@@ -9,9 +12,9 @@
 #include "PrintQueue.h"
 #include "SJFQueue.h"
 #include "MultiQueue.h"
-
 using namespace std;
 
+//Helper function headers
 void readData(string fileName, queue<PrintJob>& pendingJobs);
 void runSimulation(string dataFile, PrintQueue* printer);
 
@@ -24,7 +27,7 @@ int main()
     //Priority Queue will be similar to the FIFO queue
 
     cout << setw(35) << right << "Queue Simulations: " << endl;
-    string data = "Program6Data2.txt";
+    string data = "Program6Data.txt";
 
     cout << "Results of First In, First Out Simulation" << endl;
     
@@ -96,6 +99,7 @@ void runSimulation(string dataFile, PrintQueue* printer) {
                 if (waitingTime > longestWait) {
                     longestWait = waitingTime;
                 }
+                //Adds waiting time to appropriate category
                 switch (tempJob.GetType())
                 {
                 case 'A':
@@ -108,6 +112,7 @@ void runSimulation(string dataFile, PrintQueue* printer) {
                     totalWaitingStudent += waitingTime;
                     break;
                 };
+                //Increments total job number
                 pastJobs++;
             }
         }
