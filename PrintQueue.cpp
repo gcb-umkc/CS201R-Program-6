@@ -45,13 +45,17 @@ bool PrintQueue::isBusy() {
 //Pushes to the back for a job
 void PrintQueue::AddJob(PrintJob newJob) {
 	activeJobs.push_back(newJob);
-	waitingTime = activeJobs.front().GetServiceTime();
 }
 
 //Pops from the front
 PrintJob PrintQueue::RemoveJob() {
 	PrintJob temp = activeJobs.front();
 	activeJobs.pop_front();
+
+	//If the queue is not empty, then set the front service time to the waiting time
+	if (!activeJobs.empty()) {
+		SetWaitingTime(activeJobs.front().GetServiceTime());
+	}
 	return temp;
 }
 

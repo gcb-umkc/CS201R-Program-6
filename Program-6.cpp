@@ -53,19 +53,46 @@ void readData(string fileName, queue<PrintJob>& pendingJobs) {
     input.close();
 }
 
-//Main Function that simulates queuing times
-void runSimulation(string dataFile, PrintQueue* printer) {
-
-    //Statistic Variables
+//Statistic Variables to hold variables
+struct statistic {
     int pastJobs = 0;
     int longestWait = 0;
-    int totalWaitingAdmin = 0;
-    int totalWaitingFaculty = 0;
-    int totalWaitingStudent = 0;
+    int shortestWait = 999999;
+    int totalWaiting = 0;
+};
 
+//Updates the statistic struct given a waiting time
+void updateStatistic(statistic& input, int waitingTime) {
+    input.totalWaiting += waitingTime;
+    //Updates the longest wait
+    if (waitingTime > input.longestWait) {
+        input.longestWait = waitingTime;
+    }
+    //Shortest wait
+    if (waitingTime < input.shortestWait) {
+        input.shortestWait = waitingTime;
+    }
+    input.pastJobs += 1;
+}
+
+void reportStatistics(statistic category) {
+    cout << setfill('.') << "Total Jobs" << setw(36) << category.pastJobs << " jobs " << endl;
+    cout << "Shortest Wait" << setw(30) << category.shortestWait << " minutes " << endl;
+    cout << "Average Wait" << setw(31) << category.longestWait / (category.pastJobs + 0.0) << " minutes " << endl;
+    cout << "Longest Wait" << setw(31) << category.longestWait << " minutes " << endl;
+    cout << "Total Wait" << setw(33) << category.totalWaiting << " minutes " << endl;
+}
+
+//Main Function that simulates queuing times
+void runSimulation(string dataFile, PrintQueue* printer) {
     //Input data
     queue<PrintJob> newJobs;
     readData(dataFile, newJobs);
+
+    //Statistics Structs
+    statistic admin;
+    statistic faculty;
+    statistic student;
 
     //Main Simulation Loop
     int ticks = 0;
@@ -88,46 +115,40 @@ void runSimulation(string dataFile, PrintQueue* printer) {
             //If there is a last job, removes it assuming that the time frame has past for it
             if (printer->GetNumJobs() > 0) {
                 PrintJob tempJob = printer->RemoveJob();
-
-                //Updates the waiting time statistics
                 int waitingTime = ticks - tempJob.GetArrival();
-                if (waitingTime > longestWait) {
-                    longestWait = waitingTime;
-                }
-
-                //Adds waiting time to appropriate category
-                switch (tempJob.GetType())
-                {
+                
+                //Updates statistics for the appropriate category
+                switch (tempJob.GetType()){
                 case 'A':
-                    totalWaitingAdmin += waitingTime;
+                    updateStatistic(admin, waitingTime);
                     break;
                 case 'F':
-                    totalWaitingFaculty += waitingTime;
+                    updateStatistic(faculty, waitingTime);
                     break;
                 case 'S':
-                    totalWaitingStudent += waitingTime;
+                    updateStatistic(student, waitingTime);
                     break;
                 };
-
-                //Increments total job number
-                pastJobs++;
             }
         }
         else {
             //Decrement the waiting time and check if busy
             printer->update();
         }
-
         //Increase the number of ticks
         ticks++;
     }
 
     //Reports the statistics and the total wait
-    int totalWait = totalWaitingAdmin + totalWaitingFaculty + totalWaitingStudent;
-    cout << setfill('.') << "Total Jobs" << setw(36) << pastJobs << " jobs " << endl;
-    cout << "Longest Wait" << setw(31) << longestWait << " minutes " << endl;
-    cout << "Total Administrator" << setw(24) << totalWaitingAdmin << " minutes " << endl;
-    cout << "Total Faculty" << setw(30) << totalWaitingFaculty << " minutes " << endl;
-    cout << "Total Student" << setw(30) << totalWaitingStudent << " minutes " << endl;
-    cout << "Total Wait" << setw(33) << totalWait << " minutes " << endl;
+    cout << "Admin: " << endl;
+    reportStatistics(admin);
+    cout << endl;
+
+    cout << "Faculty: " << endl;
+    reportStatistics(faculty);
+    cout << endl;
+
+    cout << "Student: " << endl;
+    reportStatistics(student);
+    cout << endl;
 }

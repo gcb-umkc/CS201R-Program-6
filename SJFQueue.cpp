@@ -24,8 +24,4 @@ void SJFQueue::AddJob(PrintJob newJob) {
 		}
 	}
 
-	//If the queue is not empty, then set the front service time to the waiting time
-	if (!activeJobs.empty()) {
-		SetWaitingTime(activeJobs.front().GetServiceTime());
-	}
 }

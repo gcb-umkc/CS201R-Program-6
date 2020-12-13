@@ -16,24 +16,7 @@ void MultiQueue::AddJob(PrintJob newJob) {
         break;
     };
 
-    //Updates waiting time based on priority
-    if (activeJobsAdmin.size() == 0) {
-        if (activeJobsFaculty.size() == 0) {
-            if (!activeJobsStudent.empty()) {
-                SetWaitingTime(activeJobsStudent.front().GetServiceTime());
-            }
-        }
-        else {
-            if (!activeJobsFaculty.empty()) {
-                SetWaitingTime(activeJobsFaculty.front().GetServiceTime());
-            }
-        }
-    }
-    else {
-        if (!activeJobsAdmin.empty()) {
-            SetWaitingTime(activeJobsAdmin.front().GetServiceTime());
-        }
-    }
+    
 }
 
 //Removes a job based on level(admin, faculty, student), removing from highest first
@@ -57,6 +40,25 @@ PrintJob MultiQueue::RemoveJob() {
     else {
         tempJob = activeJobsAdmin.front();
         activeJobsAdmin.pop_front();
+    }
+
+    //Updates waiting time based on priority
+    if (activeJobsAdmin.size() == 0) {
+        if (activeJobsFaculty.size() == 0) {
+            if (!activeJobsStudent.empty()) {
+                SetWaitingTime(activeJobsStudent.front().GetServiceTime());
+            }
+        }
+        else {
+            if (!activeJobsFaculty.empty()) {
+                SetWaitingTime(activeJobsFaculty.front().GetServiceTime());
+            }
+        }
+    }
+    else {
+        if (!activeJobsAdmin.empty()) {
+            SetWaitingTime(activeJobsAdmin.front().GetServiceTime());
+        }
     }
 
     //Return job handled
