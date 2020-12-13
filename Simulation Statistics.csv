@@ -1,0 +1,29 @@
+"Results of First In, First Out Simulation",,,Results of Shortest Job First Simulation,,,Results of Multi-level Queue Simulation,
+Admin:,,,Admin:,,,Admin:,
+Total Jobs,94 jobs,,Total Jobs,94 jobs,,Total Jobs,94 jobs
+Shortest Wait,0,,Shortest Wait,0,,Shortest Wait,0
+Average Wait,89.8723,,Average Wait,96.2234,,Average Wait,10.0106
+Longest Wait,224,,Longest Wait,294,,Longest Wait,32
+Total Wait,8448,,Total Wait,9045,,Total Wait,941
+,,,,,,,
+Faculty:,,,Faculty:,,,Faculty:,
+Total Jobs,56 jobs,,Total Jobs,56 jobs,,Total Jobs,56 jobs
+Shortest Wait,0,,Shortest Wait,0,,Shortest Wait,0
+Average Wait,107.304,,Average Wait,76,,Average Wait,133.054
+Longest Wait,227,,Longest Wait,296,,Longest Wait,224
+Total Wait,6009,,Total Wait,4256,,Total Wait,7451
+,,,,,,,
+Student:,,,Student:,,,Student:,
+Total Jobs,43 jobs,,Total Jobs,43 jobs,,Total Jobs,43 jobs
+Shortest Wait,0,,Shortest Wait,0,,Shortest Wait,0
+Average Wait,80.3488,,Average Wait,78.6744,,Average Wait,226.023
+Longest Wait,220,,Longest Wait,290,,Longest Wait,388
+Total Wait,3455,,Total Wait,3383,,Total Wait,9719
+,,,,,,,
+Total Queue Wait,17912,,Total Queue Wait,16684,,Total Queue Wait,18111
+Average Longest,223.6666667,,Average Longest,293.3333333,,Average Longest,214.6666667
+Total Average,92.50836667,,Total Average,83.6326,,Total Average,123.0292
+,,,,,,,
+Versus FIFO (%),0.00,,Versus FIFO (%),-6.86,,Versus FIFO (%),1.11
+Standard Deviation of Average,13.66957707,,Standard Deviation Average,10.98564005,,Standard Deviation Average,108.3545647
+% difference Average and Longest,41.35992548,,% difference Average and Longest,28.51111364,,% difference Average and Longest,57.31173913

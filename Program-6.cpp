@@ -78,7 +78,7 @@ void updateStatistic(statistic& input, int waitingTime) {
 void reportStatistics(statistic category) {
     cout << setfill('.') << "Total Jobs" << setw(36) << category.pastJobs << " jobs " << endl;
     cout << "Shortest Wait" << setw(30) << category.shortestWait << " minutes " << endl;
-    cout << "Average Wait" << setw(31) << category.longestWait / (category.pastJobs + 0.0) << " minutes " << endl;
+    cout << "Average Wait" << setw(31) << category.totalWaiting / (category.pastJobs + 0.0) << " minutes " << endl;
     cout << "Longest Wait" << setw(31) << category.longestWait << " minutes " << endl;
     cout << "Total Wait" << setw(33) << category.totalWaiting << " minutes " << endl;
 }
@@ -150,5 +150,12 @@ void runSimulation(string dataFile, PrintQueue* printer) {
 
     cout << "Student: " << endl;
     reportStatistics(student);
+
+    cout << endl;
+    int totalJobs = student.pastJobs + faculty.pastJobs + admin.pastJobs;
+    int totalWaiting = student.totalWaiting + faculty.totalWaiting + admin.totalWaiting;
+    cout << "Total Queue Jobs: " << totalJobs << endl;
+    cout << "Total Queue Wait: " << totalWaiting << " minutes " << endl;
+    cout << "Average Queue Wait: " << (totalWaiting) / (totalJobs + 0.0) << " minutes " << endl;
     cout << endl;
 }
